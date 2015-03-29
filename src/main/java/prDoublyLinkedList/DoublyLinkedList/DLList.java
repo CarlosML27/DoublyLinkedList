@@ -1,9 +1,5 @@
 package prDoublyLinkedList.DoublyLinkedList;
 
-/**
- * Hello world!
- *
- */
 public class DLList<T> {
   private static class Node<E> {
     private E elem;
@@ -20,14 +16,53 @@ public class DLList<T> {
   private Node<T> first, last;
 
   public DLList() {
-    first = null;
-    last = null;
+    this.first = null;
+    this.last = null;
   }
 
   public boolean isEmpty() {
-    return first == null && last == null;
+    return this.first == null && this.last == null;
   }
 
+  public int listSize() {
+    Node<T> node = this.first;
+    int result = 0;
+
+    while (node != null) {
+      node = node.next;
+      result++;
+    }
+    return result;
+  }
+
+  public T first() throws DLListException {
+    if (this.isEmpty()) {
+      throw new DLListException("First on empty queue");
+    } else {
+      return this.first.elem;
+    }
+  }
+
+  public T last() throws DLListException {
+    if (this.isEmpty()) {
+      throw new DLListException("Last on empty queue");
+    } else {
+      return this.last.elem;
+    }
+  }
+
+  // Positions from 0 to (size-1)
+  public T elementAtPosition(int position) throws DLListException {
+    if (this.listSize() <= position) {
+      throw new DLListException("Requested position is bigger than list size");
+    }
+
+    Node<T> result = this.first;
+    for (int counter = 0; counter < position; counter++) {
+      result = result.next;
+    }
+    return result.elem;
+  }
 
 
 }
