@@ -64,5 +64,24 @@ public class DLList<T> {
     return result.elem;
   }
 
+  public void deleteFirst() {
+    if (this.first == this.last) {
+      this.first = null;
+      this.last = null;
+    } else {
+      this.first = this.first.next;
+      this.first.prev = null;
+    }
+  }
+
+  public void deleteLast() {
+    if (this.first == this.last) {
+      this.first = null;
+      this.last = null;
+    } else {
+      this.last = this.last.prev;
+      this.last.next = null;
+    }
+  }
 
 }
