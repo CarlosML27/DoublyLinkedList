@@ -19,5 +19,15 @@ public class DLList<T> {
 
   private Node<T> first, last;
 
+  public DLList() {
+    first = null;
+    last = null;
+  }
+
+  public boolean isEmpty() {
+    return first == null && last == null;
+  }
+
+
 
 }
