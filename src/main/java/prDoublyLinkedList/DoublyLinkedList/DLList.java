@@ -34,6 +34,12 @@ public class DLList<T> {
     }
     return result;
   }
+  
+  private void verifySize(int size, int position) throws DLListException {
+    if (size <= position) {
+      throw new DLListException("Requested position is bigger than list size");
+    }
+  }
 
   public T first() throws DLListException {
     if (this.isEmpty()) {
@@ -53,10 +59,7 @@ public class DLList<T> {
 
   // Positions from 0 to (size-1)
   public T elementAtPosition(int position) throws DLListException {
-    if (this.listSize() <= position) {
-      throw new DLListException("Requested position is bigger than list size");
-    }
-
+    verifySize(this.listSize(), position);
     Node<T> result = this.first;
     for (int counter = 0; counter < position; counter++) {
       result = result.next;
@@ -84,4 +87,7 @@ public class DLList<T> {
     }
   }
 
+  public void deleteAtPosition(int position) throws DLListException {
+    verifySize(this.listSize(), position);
+  }
 }
