@@ -34,27 +34,31 @@ public class DLList<T> {
     }
     return result;
   }
-  
+
   private void verifySize(int size, int position) throws DLListException {
     if (size <= position) {
       throw new DLListException("Requested position is bigger than list size");
     }
   }
 
-  public T first() throws DLListException {
-    if (this.isEmpty()) {
-      throw new DLListException("First on empty queue");
-    } else {
-      return this.first.elem;
+  private void verifyEmpty(boolean first) throws DLListException {
+    if (this.isEmpty() && first) {
+      throw new DLListException("First on empty list");
+    } else if (this.isEmpty() && !first) {
+      throw new DLListException("Last on empty list");
     }
   }
 
+  public T first() throws DLListException {
+    boolean first = true;
+    verifyEmpty(first);
+    return this.first.elem;
+  }
+
   public T last() throws DLListException {
-    if (this.isEmpty()) {
-      throw new DLListException("Last on empty queue");
-    } else {
-      return this.last.elem;
-    }
+    boolean first = false;
+    verifyEmpty(first);
+    return this.last.elem;
   }
 
   // Positions from 0 to (size-1)
@@ -87,7 +91,17 @@ public class DLList<T> {
     }
   }
 
-  public void deleteAtPosition(int position) throws DLListException {
-    verifySize(this.listSize(), position);
+  public void deleteElementAtPosition(int position) {
+    if (position < this.listSize()) {
+      Node<T> actualNode = this.first;
+      int counter = 0;
+      while (counter < position) {
+        actualNode = actualNode.next;
+        counter++;
+      }
+      actualNode.prev.next = actualNode.next;
+      actualNode.next.prev = actualNode.prev;
+      actualNode = null;
+    }
   }
 }
