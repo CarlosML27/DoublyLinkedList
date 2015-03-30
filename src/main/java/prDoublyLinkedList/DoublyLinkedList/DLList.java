@@ -104,4 +104,33 @@ public class DLList<T> {
       actualNode = null;
     }
   }
+
+  public String toString() {
+    String result = "(";
+    Node<T> node = this.first;
+    while (node != null) {
+      result += node.elem;
+      if (node.next != null) {
+        result += ",";
+      }
+      node = node.next;
+    }
+    result += ")";
+    return result;
+  }
+
+  public String showReverse() {
+    String result = "(";
+    Node<T> node = this.last;
+    while (node != null) {
+      result += node.elem;
+      if (node.prev != null) {
+        result += ",";
+      }
+      node = node.prev;
+    }
+    result += ")";
+    return result;
+  }
+
 }
