@@ -1,4 +1,4 @@
-package prDoublyLinkedList.DoublyLinkedList;
+package prdoublylinkedlist.doublylinkedlist;
 
 public class DLList<T> {
   private static class Node<E> {
@@ -41,23 +41,23 @@ public class DLList<T> {
     }
   }
 
-  private void verifyEmpty(boolean first) throws DLListException {
-    if (this.isEmpty() && first) {
+  private void verifyEmpty(boolean isFirst) throws DLListException {
+    if (this.isEmpty() && isFirst) {
       throw new DLListException("First on empty list");
-    } else if (this.isEmpty() && !first) {
+    } else if (this.isEmpty() && !isFirst) {
       throw new DLListException("Last on empty list");
     }
   }
 
   public T first() throws DLListException {
-    boolean first = true;
-    verifyEmpty(first);
+    boolean isFirst = true;
+    verifyEmpty(isFirst);
     return this.first.elem;
   }
 
   public T last() throws DLListException {
-    boolean first = false;
-    verifyEmpty(first);
+    boolean isFirst = false;
+    verifyEmpty(isFirst);
     return this.last.elem;
   }
 
@@ -105,6 +105,7 @@ public class DLList<T> {
     }
   }
 
+  @Override
   public String toString() {
     String result = "(";
     Node<T> node = this.first;

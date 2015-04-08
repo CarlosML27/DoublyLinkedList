@@ -1,4 +1,4 @@
-package prDoublyLinkedList.DoublyLinkedList;
+package prdoublylinkedlist.doublylinkedlist;
 
 public class DLListException extends Exception {
 

@@ -1,4 +1,4 @@
-package prDoublyLinkedList.DoublyLinkedList;
+package prdoublylinkedlist.doublylinkedlist;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
