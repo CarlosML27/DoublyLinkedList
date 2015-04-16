@@ -35,28 +35,36 @@ public class DLList<T> {
     return result;
   }
 
+  public T first() {
+    return this.first.elem;
+  }
+
+  public T last() {
+    return this.last.elem;
+  }
+
   private void verifySize(int size, int position) throws DLListException {
-    if (size <= position) {
+    if (size <= position || position < 0) {
       throw new DLListException("Requested position is not in the list.");
     }
   }
 
-  public T first() throws DLListException {
-    return elementAtPosition(0);
-  }
-
-  public T last() throws DLListException {
-    return elementAtPosition(this.listSize()-1);
-  }
-
   // Positions from 0 to (size-1)
-  public T elementAtPosition(int position) throws DLListException {
+  private Node<T> getNodeAtPosition(int position) throws DLListException {
     verifySize(this.listSize(), position);
     Node<T> result = this.first;
     for (int counter = 0; counter < position; counter++) {
       result = result.next;
     }
-    return result.elem;
+    return result;
+  }
+
+  public T getElementAtPosition(int position) throws DLListException {
+    return this.getNodeAtPosition(position).elem;
+  }
+
+  public void setElementAtPosition(int position, T element) throws DLListException {
+    this.getNodeAtPosition(position).elem = element;
   }
 
   public void deleteFirst() {
@@ -79,23 +87,22 @@ public class DLList<T> {
     }
   }
 
-  public void deleteElementAtPosition(int position) {
-    if (position < this.listSize()) {
-      if(position == 0){
-        this.deleteFirst();
-      } else if(position == this.listSize()-1){
-        this.deleteLast();
-      } else{
-        Node<T> actualNode = this.first;
-        int counter = 0;
-        while (counter < position) {
-          actualNode = actualNode.next;
-          counter++;
-        }
-        actualNode.prev.next = actualNode.next;
-        actualNode.next.prev = actualNode.prev;
-        actualNode = null;
+  public void deleteElementAtPosition(int position) throws DLListException {
+    verifySize(this.listSize(), position);
+    if (position == 0) {
+      this.deleteFirst();
+    } else if (position == this.listSize() - 1) {
+      this.deleteLast();
+    } else {
+      Node<T> actualNode = this.first;
+      int counter = 0;
+      while (counter < position) {
+        actualNode = actualNode.next;
+        counter++;
       }
+      actualNode.prev.next = actualNode.next;
+      actualNode.next.prev = actualNode.prev;
+      actualNode = null;
     }
   }
 
@@ -114,7 +121,7 @@ public class DLList<T> {
     return result;
   }
 
-  public String showReverse() {
+  public String toStringReverse() {
     String result = "(";
     Node<T> node = this.last;
     while (node != null) {
