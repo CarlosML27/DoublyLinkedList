@@ -171,7 +171,7 @@ public class DLList<T> {
     String result = "(";
     DLNode<T> node = this.first;
     while (node != null) {
-      result += node.elem;
+      result += node.elem.toString();
       if (node.next != null) {
         result += ",";
       }
@@ -185,7 +185,7 @@ public class DLList<T> {
     String result = "(";
     DLNode<T> node = this.last;
     while (node != null) {
-      result += node.elem;
+      result += node.elem.toString();
       if (node.prev != null) {
         result += ",";
       }
