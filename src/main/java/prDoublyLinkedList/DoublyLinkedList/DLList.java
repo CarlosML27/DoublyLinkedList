@@ -67,6 +67,66 @@ public class DLList<T> {
     this.getNodeAtPosition(position).elem = element;
   }
 
+  private void insertElementAtEmpty(T element) {
+    DLNode<T> newNode = new DLNode<T>(element, null, null);
+    this.first = newNode;
+    this.last = newNode;
+  }
+
+  public void insertElementBeforePosition(T element, int position) throws DLListException {
+    if (this.listSize() == 0) {
+      insertElementAtEmpty(element);
+    } else {
+      verifySize(this.listSize(), position);
+      DLNode<T> newNode = new DLNode<T>(element, null, null);
+      DLNode<T> nodePosition = this.first;
+      for (int counter = 0; counter < position; counter++) {
+        nodePosition = nodePosition.next;
+      }
+      if(position == 0){
+        this.first = newNode;
+        newNode.next = nodePosition;
+        nodePosition.prev = newNode;
+      } else{
+        newNode.prev = nodePosition.prev;
+        newNode.next = nodePosition;
+        nodePosition.prev.next = newNode;
+        nodePosition.prev = newNode;
+      }
+    }
+  }
+
+  public void insertElementAfterPosition(T element, int position) throws DLListException {
+    if (this.listSize() == 0) {
+      insertElementAtEmpty(element);
+    } else {
+      verifySize(this.listSize(), position);
+      DLNode<T> newNode = new DLNode<T>(element, null, null);
+      DLNode<T> nodePosition = this.first;
+      for (int counter = 0; counter < position; counter++) {
+        nodePosition = nodePosition.next;
+      }
+      if(position == this.listSize()-1){
+        this.last = newNode;
+        newNode.prev = nodePosition;
+        nodePosition.next = newNode;
+      } else{
+        newNode.next = nodePosition.next;
+        newNode.prev = nodePosition;
+        nodePosition.next.prev = newNode;
+        nodePosition.next = newNode;
+      }
+    }
+  }
+
+  public void insertFirst(T element) throws DLListException {
+    insertElementBeforePosition(element, 0);
+  }
+
+  public void insertLast(T element) throws DLListException{
+    insertElementAfterPosition(element, this.listSize() - 1);
+  }
+
   public void deleteFirst() {
     if (this.first == this.last) {
       this.first = null;
