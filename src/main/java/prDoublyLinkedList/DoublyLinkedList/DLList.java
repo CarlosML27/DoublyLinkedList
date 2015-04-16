@@ -1,19 +1,19 @@
 package prdoublylinkedlist.doublylinkedlist;
 
 public class DLList<T> {
-  private static class Node<E> {
+  private static class DLNode<E> {
     private E elem;
-    private Node<E> next;
-    private Node<E> prev;
+    private DLNode<E> next;
+    private DLNode<E> prev;
 
-    public Node(E elem, Node<E> next, Node<E> prev) {
+    public DLNode(E elem, DLNode<E> next, DLNode<E> prev) {
       this.elem = elem;
       this.next = next;
       this.prev = prev;
     }
   }
 
-  private Node<T> first, last;
+  private DLNode<T> first, last;
 
   public DLList() {
     this.first = null;
@@ -25,7 +25,7 @@ public class DLList<T> {
   }
 
   public int listSize() {
-    Node<T> node = this.first;
+    DLNode<T> node = this.first;
     int result = 0;
 
     while (node != null) {
@@ -50,9 +50,9 @@ public class DLList<T> {
   }
 
   // Positions from 0 to (size-1)
-  private Node<T> getNodeAtPosition(int position) throws DLListException {
+  private DLNode<T> getNodeAtPosition(int position) throws DLListException {
     verifySize(this.listSize(), position);
-    Node<T> result = this.first;
+    DLNode<T> result = this.first;
     for (int counter = 0; counter < position; counter++) {
       result = result.next;
     }
@@ -94,7 +94,7 @@ public class DLList<T> {
     } else if (position == this.listSize() - 1) {
       this.deleteLast();
     } else {
-      Node<T> actualNode = this.first;
+      DLNode<T> actualNode = this.first;
       int counter = 0;
       while (counter < position) {
         actualNode = actualNode.next;
@@ -109,7 +109,7 @@ public class DLList<T> {
   @Override
   public String toString() {
     String result = "(";
-    Node<T> node = this.first;
+    DLNode<T> node = this.first;
     while (node != null) {
       result += node.elem;
       if (node.next != null) {
@@ -123,7 +123,7 @@ public class DLList<T> {
 
   public String toStringReverse() {
     String result = "(";
-    Node<T> node = this.last;
+    DLNode<T> node = this.last;
     while (node != null) {
       result += node.elem;
       if (node.prev != null) {
