@@ -195,4 +195,11 @@ public class DLList<T> {
     return result;
   }
 
+  public void showList(){
+    System.out.println(this.toString());
+  }
+  
+  public void showReverseList(){
+    System.out.println(this.toStringReverse());
+  }
 }
