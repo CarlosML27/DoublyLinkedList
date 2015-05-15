@@ -154,15 +154,15 @@ public class DLList<T> {
     } else if (position == this.listSize() - 1) {
       this.deleteLast();
     } else {
-      DLNode<T> actualNode = this.first;
+      DLNode<T> currentNode = this.first;
       int counter = 0;
       while (counter < position) {
-        actualNode = actualNode.next;
+        currentNode = currentNode.next;
         counter++;
       }
-      actualNode.prev.next = actualNode.next;
-      actualNode.next.prev = actualNode.prev;
-      actualNode = null;
+      currentNode.prev.next = currentNode.next;
+      currentNode.next.prev = currentNode.prev;
+      currentNode = null;
     }
   }
 
