@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DLList.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">DoublyLinkedList</a> &gt; <a href="index.source.html" class="el_package">prdoublylinkedlist.doublylinkedlist</a> &gt; <span class="el_source">DLList.java</span></div><h1>DLList.java</h1><pre class="source lang-java linenums">package prdoublylinkedlist.doublylinkedlist;
+
+public class DLList&lt;T&gt; {
+  private static class DLNode&lt;E&gt; {
+    private E elem;
+    private DLNode&lt;E&gt; next;
+    private DLNode&lt;E&gt; prev;
+
+<span class="fc" id="L9">    public DLNode(E elem, DLNode&lt;E&gt; next, DLNode&lt;E&gt; prev) {</span>
+<span class="fc" id="L10">      this.elem = elem;</span>
+<span class="fc" id="L11">      this.next = next;</span>
+<span class="fc" id="L12">      this.prev = prev;</span>
+<span class="fc" id="L13">    }</span>
+  }
+
+  private DLNode&lt;T&gt; first, last;
+
+<span class="fc" id="L18">  public DLList() {</span>
+<span class="fc" id="L19">    this.first = null;</span>
+<span class="fc" id="L20">    this.last = null;</span>
+<span class="fc" id="L21">  }</span>
+
+  public boolean isEmpty() {
+<span class="pc bpc" id="L24" title="2 of 4 branches missed.">    return this.first == null &amp;&amp; this.last == null;</span>
+  }
+
+  public int listSize() {
+<span class="fc" id="L28">    DLNode&lt;T&gt; node = this.first;</span>
+<span class="fc" id="L29">    int result = 0;</span>
+
+<span class="fc bfc" id="L31" title="All 2 branches covered.">    while (node != null) {</span>
+<span class="fc" id="L32">      node = node.next;</span>
+<span class="fc" id="L33">      result++;</span>
+    }
+<span class="fc" id="L35">    return result;</span>
+  }
+
+  public T first() {
+<span class="fc" id="L39">    return this.first.elem;</span>
+  }
+
+  public T last() {
+<span class="fc" id="L43">    return this.last.elem;</span>
+  }
+
+  private void verifySize(int size, int position) throws DLListException {
+<span class="fc bfc" id="L47" title="All 4 branches covered.">    if (size &lt;= position || position &lt; 0) {</span>
+<span class="fc" id="L48">      throw new DLListException(&quot;Requested position is not in the list.&quot;);</span>
+    }
+<span class="fc" id="L50">  }</span>
+
+  // Positions from 0 to (size-1)
+  private DLNode&lt;T&gt; getNodeAtPosition(int position) throws DLListException {
+<span class="fc" id="L54">    verifySize(this.listSize(), position);</span>
+<span class="fc" id="L55">    DLNode&lt;T&gt; result = this.first;</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">    for (int counter = 0; counter &lt; position; counter++) {</span>
+<span class="fc" id="L57">      result = result.next;</span>
+    }
+<span class="fc" id="L59">    return result;</span>
+  }
+
+  public T getElementAtPosition(int position) throws DLListException {
+<span class="fc" id="L63">    return this.getNodeAtPosition(position).elem;</span>
+  }
+
+  public void setElementAtPosition(int position, T element) throws DLListException {
+<span class="fc" id="L67">    this.getNodeAtPosition(position).elem = element;</span>
+<span class="fc" id="L68">  }</span>
+
+  private void insertElementAtEmpty(T element) {
+<span class="fc" id="L71">    DLNode&lt;T&gt; newNode = new DLNode&lt;T&gt;(element, null, null);</span>
+<span class="fc" id="L72">    this.first = newNode;</span>
+<span class="fc" id="L73">    this.last = newNode;</span>
+<span class="fc" id="L74">  }</span>
+
+  public void insertElementBeforePosition(T element, int position) throws DLListException {
+<span class="fc bfc" id="L77" title="All 2 branches covered.">    if (this.listSize() == 0) {</span>
+<span class="fc" id="L78">      insertElementAtEmpty(element);</span>
+<span class="fc" id="L79">    } else {</span>
+<span class="fc" id="L80">      verifySize(this.listSize(), position);</span>
+<span class="fc" id="L81">      DLNode&lt;T&gt; newNode = new DLNode&lt;T&gt;(element, null, null);</span>
+<span class="fc" id="L82">      DLNode&lt;T&gt; nodePosition = this.first;</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">      for (int counter = 0; counter &lt; position; counter++) {</span>
+<span class="fc" id="L84">        nodePosition = nodePosition.next;</span>
+      }
+<span class="fc bfc" id="L86" title="All 2 branches covered.">      if(position == 0){</span>
+<span class="fc" id="L87">        this.first = newNode;</span>
+<span class="fc" id="L88">        newNode.next = nodePosition;</span>
+<span class="fc" id="L89">        nodePosition.prev = newNode;</span>
+<span class="fc" id="L90">      } else{</span>
+<span class="fc" id="L91">        newNode.prev = nodePosition.prev;</span>
+<span class="fc" id="L92">        newNode.next = nodePosition;</span>
+<span class="fc" id="L93">        nodePosition.prev.next = newNode;</span>
+<span class="fc" id="L94">        nodePosition.prev = newNode;</span>
+      }
+    }
+<span class="fc" id="L97">  }</span>
+
+  public void insertElementAfterPosition(T element, int position) throws DLListException {
+<span class="fc bfc" id="L100" title="All 2 branches covered.">    if (this.listSize() == 0) {</span>
+<span class="fc" id="L101">      insertElementAtEmpty(element);</span>
+<span class="fc" id="L102">    } else {</span>
+<span class="fc" id="L103">      verifySize(this.listSize(), position);</span>
+<span class="fc" id="L104">      DLNode&lt;T&gt; newNode = new DLNode&lt;T&gt;(element, null, null);</span>
+<span class="fc" id="L105">      DLNode&lt;T&gt; nodePosition = this.first;</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">      for (int counter = 0; counter &lt; position; counter++) {</span>
+<span class="fc" id="L107">        nodePosition = nodePosition.next;</span>
+      }
+<span class="fc bfc" id="L109" title="All 2 branches covered.">      if(position == this.listSize()-1){</span>
+<span class="fc" id="L110">        this.last = newNode;</span>
+<span class="fc" id="L111">        newNode.prev = nodePosition;</span>
+<span class="fc" id="L112">        nodePosition.next = newNode;</span>
+<span class="fc" id="L113">      } else{</span>
+<span class="fc" id="L114">        newNode.next = nodePosition.next;</span>
+<span class="fc" id="L115">        newNode.prev = nodePosition;</span>
+<span class="fc" id="L116">        nodePosition.next.prev = newNode;</span>
+<span class="fc" id="L117">        nodePosition.next = newNode;</span>
+      }
+    }
+<span class="fc" id="L120">  }</span>
+
+  public void insertFirst(T element) throws DLListException {
+<span class="fc" id="L123">    insertElementBeforePosition(element, 0);</span>
+<span class="fc" id="L124">  }</span>
+
+  public void insertLast(T element) throws DLListException{
+<span class="fc" id="L127">    insertElementAfterPosition(element, this.listSize() - 1);</span>
+<span class="fc" id="L128">  }</span>
+
+  public void deleteFirst() {
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">    if (this.first == this.last) {</span>
+<span class="nc" id="L132">      this.first = null;</span>
+<span class="nc" id="L133">      this.last = null;</span>
+<span class="nc" id="L134">    } else {</span>
+<span class="fc" id="L135">      this.first = this.first.next;</span>
+<span class="fc" id="L136">      this.first.prev = null;</span>
+    }
+<span class="fc" id="L138">  }</span>
+
+  public void deleteLast() {
+<span class="pc bpc" id="L141" title="1 of 2 branches missed.">    if (this.first == this.last) {</span>
+<span class="nc" id="L142">      this.first = null;</span>
+<span class="nc" id="L143">      this.last = null;</span>
+<span class="nc" id="L144">    } else {</span>
+<span class="fc" id="L145">      this.last = this.last.prev;</span>
+<span class="fc" id="L146">      this.last.next = null;</span>
+    }
+<span class="fc" id="L148">  }</span>
+
+  public void deleteElementAtPosition(int position) throws DLListException {
+<span class="fc" id="L151">    verifySize(this.listSize(), position);</span>
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">    if (position == 0) {</span>
+<span class="nc" id="L153">      this.deleteFirst();</span>
+<span class="pc bpc" id="L154" title="1 of 2 branches missed.">    } else if (position == this.listSize() - 1) {</span>
+<span class="nc" id="L155">      this.deleteLast();</span>
+<span class="nc" id="L156">    } else {</span>
+<span class="fc" id="L157">      DLNode&lt;T&gt; currentNode = this.first;</span>
+<span class="fc" id="L158">      int counter = 0;</span>
+<span class="fc bfc" id="L159" title="All 2 branches covered.">      while (counter &lt; position) {</span>
+<span class="fc" id="L160">        currentNode = currentNode.next;</span>
+<span class="fc" id="L161">        counter++;</span>
+      }
+<span class="fc" id="L163">      currentNode.prev.next = currentNode.next;</span>
+<span class="fc" id="L164">      currentNode.next.prev = currentNode.prev;</span>
+<span class="fc" id="L165">      currentNode = null;</span>
+    }
+<span class="fc" id="L167">  }</span>
+
+  @Override
+  public String toString() {
+<span class="fc" id="L171">    String result = &quot;(&quot;;</span>
+<span class="fc" id="L172">    DLNode&lt;T&gt; node = this.first;</span>
+<span class="fc bfc" id="L173" title="All 2 branches covered.">    while (node != null) {</span>
+<span class="fc" id="L174">      result += node.elem.toString();</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">      if (node.next != null) {</span>
+<span class="fc" id="L176">        result += &quot;,&quot;;</span>
+      }
+<span class="fc" id="L178">      node = node.next;</span>
+    }
+<span class="fc" id="L180">    result += &quot;)&quot;;</span>
+<span class="fc" id="L181">    return result;</span>
+  }
+
+  public String toStringReverse() {
+<span class="fc" id="L185">    String result = &quot;(&quot;;</span>
+<span class="fc" id="L186">    DLNode&lt;T&gt; node = this.last;</span>
+<span class="fc bfc" id="L187" title="All 2 branches covered.">    while (node != null) {</span>
+<span class="fc" id="L188">      result += node.elem.toString();</span>
+<span class="fc bfc" id="L189" title="All 2 branches covered.">      if (node.prev != null) {</span>
+<span class="fc" id="L190">        result += &quot;,&quot;;</span>
+      }
+<span class="fc" id="L192">      node = node.prev;</span>
+    }
+<span class="fc" id="L194">    result += &quot;)&quot;;</span>
+<span class="fc" id="L195">    return result;</span>
+  }
+
+  public void showList(){
+<span class="nc" id="L199">    System.out.println(this.toString());</span>
+<span class="nc" id="L200">  }</span>
+  
+  public void showReverseList(){
+<span class="nc" id="L203">    System.out.println(this.toStringReverse());</span>
+<span class="nc" id="L204">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>
