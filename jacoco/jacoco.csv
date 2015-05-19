@@ -1,4 +1,4 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 DoublyLinkedList,prdoublylinkedlist.doublylinkedlist,DLList.DLNode,0,12,0,0,0,5,0,1,0,1
-DoublyLinkedList,prdoublylinkedlist.doublylinkedlist,DLList,32,389,6,36,13,106,8,34,2,19
+DoublyLinkedList,prdoublylinkedlist.doublylinkedlist,DLList,12,409,2,40,4,115,4,38,2,19
 DoublyLinkedList,prdoublylinkedlist.doublylinkedlist,DLListException,3,4,0,0,2,2,1,1,1,1

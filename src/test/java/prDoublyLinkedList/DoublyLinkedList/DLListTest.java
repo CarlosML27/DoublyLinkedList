@@ -413,6 +413,13 @@ public class DLListTest {
     }
 
     @Test
+    public void deleteFirstSizeOneResultEmptyList() throws DLListException {
+        list.insertLast('w');
+        list.deleteFirst();
+        assertTrue(list.isEmpty());
+    }
+
+    @Test
     public void deleteLastNewLastEqualsPreviousElementAtPositionSizeMinusTwo()
             throws DLListException {
         Character[] items = { 'x', 'y', 'z', 't' };
@@ -434,6 +441,13 @@ public class DLListTest {
         int sizeBefore = list.listSize();
         list.deleteLast();
         assertEquals(sizeBefore - 1, list.listSize());
+    }
+
+    @Test
+    public void deleteLastSizeOneResultEmptyList() throws DLListException {
+        list.insertLast('w');
+        list.deleteLast();
+        assertTrue(list.isEmpty());
     }
 
     @Test(expected = DLListException.class)
@@ -476,7 +490,32 @@ public class DLListTest {
     }
 
     @Test
-    public void toStringApropriateRepresentationOfList() throws DLListException {
+    public void deleteElementAtPositionZeroNewFirstEqualsPreviousPosOne()
+            throws DLListException {
+        Character[] items = { 'x', 'y', 'z', 't' };
+        for (Character item : items) {
+            list.insertLast(item);
+        }
+        Character previousPositionOne = list.getElementAtPosition(1);
+        list.deleteElementAtPosition(0);
+        assertEquals(previousPositionOne, list.first());
+    }
+
+    @Test
+    public void deleteElementAtPositionSizeMinusOneNewLastEqualsPreviousPosSizeMinusTwo()
+            throws DLListException {
+        Character[] items = { 'x', 'y', 'z', 't' };
+        for (Character item : items) {
+            list.insertLast(item);
+        }
+        Character previousPositionSizeMinusTwo = list.getElementAtPosition(list
+                .listSize() - 2);
+        list.deleteElementAtPosition(list.listSize() - 1);
+        assertEquals(previousPositionSizeMinusTwo, list.last());
+    }
+
+    @Test
+    public void toStringRepresentationOfListOK() throws DLListException {
         Character[] items = { 'x', 'y', 'z', 't' };
         for (Character item : items) {
             list.insertLast(item);
@@ -485,7 +524,7 @@ public class DLListTest {
     }
 
     @Test
-    public void toStringReverseApropriate() throws DLListException {
+    public void toStringReverseOK() throws DLListException {
         Character[] items = { 'x', 'y', 'z', 't' };
         for (Character item : items) {
             list.insertLast(item);

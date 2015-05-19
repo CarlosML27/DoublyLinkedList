@@ -128,20 +128,20 @@ public class DLList&lt;T&gt; {
 <span class="fc" id="L128">  }</span>
 
   public void deleteFirst() {
-<span class="pc bpc" id="L131" title="1 of 2 branches missed.">    if (this.first == this.last) {</span>
-<span class="nc" id="L132">      this.first = null;</span>
-<span class="nc" id="L133">      this.last = null;</span>
-<span class="nc" id="L134">    } else {</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">    if (this.first == this.last) {</span>
+<span class="fc" id="L132">      this.first = null;</span>
+<span class="fc" id="L133">      this.last = null;</span>
+<span class="fc" id="L134">    } else {</span>
 <span class="fc" id="L135">      this.first = this.first.next;</span>
 <span class="fc" id="L136">      this.first.prev = null;</span>
     }
 <span class="fc" id="L138">  }</span>
 
   public void deleteLast() {
-<span class="pc bpc" id="L141" title="1 of 2 branches missed.">    if (this.first == this.last) {</span>
-<span class="nc" id="L142">      this.first = null;</span>
-<span class="nc" id="L143">      this.last = null;</span>
-<span class="nc" id="L144">    } else {</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">    if (this.first == this.last) {</span>
+<span class="fc" id="L142">      this.first = null;</span>
+<span class="fc" id="L143">      this.last = null;</span>
+<span class="fc" id="L144">    } else {</span>
 <span class="fc" id="L145">      this.last = this.last.prev;</span>
 <span class="fc" id="L146">      this.last.next = null;</span>
     }
@@ -149,11 +149,11 @@ public class DLList&lt;T&gt; {
 
   public void deleteElementAtPosition(int position) throws DLListException {
 <span class="fc" id="L151">    verifySize(this.listSize(), position);</span>
-<span class="pc bpc" id="L152" title="1 of 2 branches missed.">    if (position == 0) {</span>
-<span class="nc" id="L153">      this.deleteFirst();</span>
-<span class="pc bpc" id="L154" title="1 of 2 branches missed.">    } else if (position == this.listSize() - 1) {</span>
-<span class="nc" id="L155">      this.deleteLast();</span>
-<span class="nc" id="L156">    } else {</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">    if (position == 0) {</span>
+<span class="fc" id="L153">      this.deleteFirst();</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">    } else if (position == this.listSize() - 1) {</span>
+<span class="fc" id="L155">      this.deleteLast();</span>
+<span class="fc" id="L156">    } else {</span>
 <span class="fc" id="L157">      DLNode&lt;T&gt; currentNode = this.first;</span>
 <span class="fc" id="L158">      int counter = 0;</span>
 <span class="fc bfc" id="L159" title="All 2 branches covered.">      while (counter &lt; position) {</span>
